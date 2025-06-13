@@ -40,13 +40,9 @@ const dados = [
 
 function funcionariosTerceirizados(list) {
 
-    const funcTerceirizados = [];
+    let funcTerceirizados = [];
 
-    for (let i = 0; i < list.length; i++) {
-        if (list[i].terceirizado == true) {
-            funcTerceirizados.push(list[i]);
-        }
-    }
+    funcTerceirizados = list.filter(x => x.terceirizado);
 
     return funcTerceirizados;
 }
@@ -59,13 +55,10 @@ function funcionariosTerceirizados(list) {
 //---------------------------------------------------------------------------
 
 function custoTotal(list) {
-    let custo = 0;
 
-    for (let i = 0; i < list.length; i++) {
-        custo += list[i].valorHora * list[i].horasTrabalhadas;
-    }
-
-    return custo;
+  return list
+    .map(x => x.valorHora * x.horasTrabalhadas)
+    .reduce((x, y) => x + y);
 }
 
 //---------------------------------------------------------------------------
@@ -77,5 +70,5 @@ const terceirizados = funcionariosTerceirizados(dados);
 const custoTerceirizados = custoTotal(terceirizados);
 
 console.log(
-  "Custo total dos funcionarios terceirizados: R$ " + custoTerceirizados.toFixed(2)
+  `Custo total dos funcionarios terceirizados: R$ ${custoTerceirizados.toFixed(2)}`
 );
